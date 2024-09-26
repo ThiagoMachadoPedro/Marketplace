@@ -44,10 +44,10 @@ class SubCategoryController extends Controller
     // Método para armazenar a nova categoria
     public function store(Request $request)
     {
-       // Validação dos dados recebidos
+        // Validação dos dados recebidos
         $request->validate([
             'name' => 'required|string|max:255',
-            'id_categoria' => ['required ','max:200' ,'unique:sub_categoria,name'],
+            'id_categoria' => ['required', 'max:200', 'unique:sub_categoria,name'],
             'status' => 'required',
         ]);
 
@@ -81,8 +81,11 @@ class SubCategoryController extends Controller
     public function edit($id)
     {
         $categoria = SubCategoria::findOrFail($id);
-        return view('admin.sub-category.edit', compact('categoria'));
+        $categorias = Categoria::all(); // Buscar todas as categorias
+
+        return view('admin.sub-category.edit', compact('categoria', 'categorias'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -92,7 +95,7 @@ class SubCategoryController extends Controller
         // Validação dos dados
         $request->validate([
             'name' => 'required|string|max:255',
-            'icone' => 'required|string', // Certifique-se de que o ícone é uma string válida
+            'id_categoria' => ['required', 'max:200', 'unique:sub_categoria,name'],
             'status' => 'required|boolean',
         ]);
 
@@ -100,7 +103,7 @@ class SubCategoryController extends Controller
 
         // Atualiza os campos da categoria com os dados do request
         $categoria->name = $request->name;
-        $categoria->icone = $request->icone; // Verifique se este campo está preenchido corretamente no request
+        $categoria->id_categoria = $request->id_categoria;
         $categoria->status = $request->status;
         $categoria->slug = Str::slug($request->name);
 
@@ -108,7 +111,7 @@ class SubCategoryController extends Controller
         $categoria->save();  // Salva a instância existente
 
         // Redirecionar com uma mensagem de sucesso
-        return redirect()->route('categoria.index')->with('success', 'Categoria atualizada com sucesso!');
+        return redirect()->route('subcategoria.index')->with('success', 'Sub-Categoria atualizada com sucesso!');
     }
 
 
@@ -119,15 +122,10 @@ class SubCategoryController extends Controller
     {
         $categoria = SubCategoria::findOrFail($id);
 
-        // Verifica e exclui o ícone se necessário
-        if (file_exists(public_path($categoria->icone))) {
-            unlink(public_path($categoria->icone));
-        }
-
         // Excluir a categoria do banco de dados
         $categoria->delete();
 
-        return redirect()->route('categoria.index')->with('success', 'Categoria removida com sucesso!');
+        return redirect()->route('subcategoria.index')->with('success', 'Sub-Categoria removida com sucesso!');
     }
 
 

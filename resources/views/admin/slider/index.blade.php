@@ -22,7 +22,7 @@
                     <div class="card-header">
                         <h4>Slide Destaque</h4>
                         <div class="card-header-action">
-                            <a href="{{ route('slider.create') }}" class="btn btn-primary">Novo</a>
+                            <a href="{{ route('slider.create') }}" class="btn btn-primary">Novo Slider</a>
                         </div>
                     </div>
 
@@ -58,7 +58,8 @@
                     <img src="{{ asset($slider->banner) }}" alt="Banner" style="max-width: 100%; max-height: 100%; object-fit: cover;"> <!-- Limita a largura e altura da imagem -->
                 </td>
                 <td>{{ $slider->title_one }}</td>
-                <td>{{ $slider->starting_price }}</td>
+                <td>{{ 'R$ ' . number_format($slider->starting_price, 2, ',', '.') }}</td>
+
                 <td>{{ $slider->status == 1 ? 'Ativo' : 'Inativo' }}</td>
                 <td>
                     <a href="{{ route('slider.edit', $slider->id) }}" class="btn btn-warning">Editar</a>

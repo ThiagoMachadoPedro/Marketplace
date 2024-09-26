@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_categoria', function (Blueprint $table) {
+        Schema::create('categoria_filhos', function (Blueprint $table) {
             $table->id();
             $table->integer('id_categoria');
+            $table->integer('sub_categoria_id');
             $table->string('name');
             $table->string('slug');
             $table->boolean('status');
@@ -21,11 +22,9 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+  
     public function down(): void
     {
-        Schema::dropIfExists('sub_categoria');
+        Schema::dropIfExists('categoria_filhos');
     }
 };

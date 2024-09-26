@@ -43,7 +43,7 @@ class CategoryController extends Controller
         // Validação dos dados recebidos
         $request->validate([
             'name' => 'required|string|max:255',
-            'icone' => ['required ','max:200' ,'not_in:empty'],
+            'icone' => ['required ', 'max:200', 'not_in:empty'],
             'status' => 'required|boolean',
         ]);
 
@@ -124,7 +124,7 @@ class CategoryController extends Controller
         return redirect()->route('categoria.index')->with('success', 'Categoria removida com sucesso!');
     }
 
-   
+
 
 
 }

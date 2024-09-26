@@ -23,6 +23,7 @@
                 <ul class="dropdown-menu">
                    <li><a class="nav-link" href="{{route('categoria.index')}}">Categorias</a></li>
                    <li><a class="nav-link" href="{{route('subcategoria.index')}}">Sub-Categorias</a></li>
+                   <li><a class="nav-link" href="{{route('categoria-filho.index')}}">Categoria Filho</a></li>
 
 
                 </ul>
