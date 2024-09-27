@@ -124,6 +124,20 @@ class CategoryController extends Controller
         return redirect()->route('categoria.index')->with('success', 'Categoria removida com sucesso!');
     }
 
+    public function toggleStatus(Request $request)
+    {
+        $categoria = Categoria::find($request->id);
+
+        if ($categoria) {
+            $categoria->status = $request->status; // Atualiza o status com o valor vindo da requisição
+            $categoria->save(); // Salva a alteração no banco
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
 
 
 

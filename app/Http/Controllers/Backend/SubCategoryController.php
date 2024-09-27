@@ -128,7 +128,19 @@ class SubCategoryController extends Controller
         return redirect()->route('subcategoria.index')->with('success', 'Sub-Categoria removida com sucesso!');
     }
 
+    public function toggleStatus(Request $request)
+    {
+        $subCategoria = SubCategoria::find($request->id);
 
+        if ($subCategoria) {
+            $subCategoria->status = $request->status; // Atualiza o status com o valor vindo da requisição
+            $subCategoria->save(); // Salva a alteração no banco
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
 
 
 }

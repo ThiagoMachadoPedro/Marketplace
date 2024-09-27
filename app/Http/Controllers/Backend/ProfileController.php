@@ -24,14 +24,15 @@ class ProfileController extends Controller
 
         // Se uma nova imagem foi enviada
         if ($request->hasFile('image')) {
-            // Verifica se o usuário já tem uma imagem e a apaga do sistema
-            if (File::exists(public_path($user->image))) {
+            // Verifica se o usuário já tem uma imagem e se a imagem existe no sistema
+            if ($user->image && File::exists(public_path($user->image))) {
+                // Apaga a imagem antiga
                 File::delete(public_path($user->image));
             }
 
             // Move a nova imagem para a pasta uploads
             $image = $request->file('image');
-            $imageName = rand() . '--msflix-' . $image->getClientOriginalName();
+            $imageName = rand() . '-perfil-' . $image->getClientOriginalName();
             $image->move(public_path('uploads'), $imageName);
 
             // Atualiza o caminho da nova imagem no banco de dados

@@ -134,4 +134,19 @@ class CategoriaFilhoController extends Controller
     }
 
 
+    public function toggleStatus(Request $request)
+    {
+        $filho = CategoriaFilho::find($request->id);
+
+        if ($filho) {
+            $filho->status = $request->status; // Atualiza o status com o valor vindo da requisição
+            $filho->save(); // Salva a alteração no banco
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
+
 }

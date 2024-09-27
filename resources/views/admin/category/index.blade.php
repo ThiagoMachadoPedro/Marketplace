@@ -65,7 +65,15 @@
 
 
 
-                                        <td>{{ $categoria->status == 1 ? 'Ativo' : 'Inativo' }}</td>
+                                          <td>
+                                        <label class="custom-switch mt-2">
+                                            <input type="checkbox" name="custom-switch-checkbox"
+                                                data-id="{{ $categoria->id }}" class="custom-switch-input muda-status"
+                                                {{ $categoria->status == 1 ? 'checked' : '' }}>
+                                            <span class="custom-switch-indicator"></span>
+                                        </label>
+                                    </td>
+
                                         <td>
                                           <a href="{{ route('categoria.edit', $categoria->id) }}" class="btn btn-warning">Editar</a>
 
@@ -109,6 +117,50 @@
             });
         }
     </script>
+
+       @push('scripts')
+            <script>
+                $(document).ready(function() {
+                    $('.muda-status').on('change', function() {
+                        var status = $(this).is(':checked') ? 1 : 0;
+                        var marcaId = $(this).data('id');
+                        console.log('Marca ID:', marcaId, 'Status:',
+                            status);
+
+                        $.ajax({
+                            url: "{{ route('categoria.toggleStatus') }}",
+                            method: "POST",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                id: marcaId,
+                                status: status
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Sucesso ao atualizar o status!',
+                                        text: response.message,
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Erro , atualizar o status!',
+                                        text: response.message, // Mensagem de erro do servidor
+                                    });
+                                }
+                            },
+
+                            error: function(xhr, status, error) {
+                                console.error(error); // Exiba o erro no console
+                                alert('Erro ao tentar alterar o status.');
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endpush
 
 </section>
 

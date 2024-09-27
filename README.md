@@ -7,6 +7,13 @@ php artisan breeze:install
 npm install
 npm run dev
 
+
+// cria o controler os metodos
+php artisan make:controller Backend/MarcaController -r
+
+// cria o model com a migrate
+php artisan make:model NomeModel -m
+
 // painel administrativo tem arquivos na pasta public
 
 
@@ -14,5 +21,5 @@ npm run dev
 https://github.com/lucascudo/laravel-pt-BR-localization/blob/main/README.md
 
 
-// instalar campo de mensagens
-composer require yoeunes/toastr
+// quando criar um helper tem que dar damper , mudar a classe composer
+composer dump-autoload
