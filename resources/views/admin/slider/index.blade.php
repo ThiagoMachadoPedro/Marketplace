@@ -86,7 +86,13 @@
         </div>
     </div>
 
-    <script>
+    </section>
+
+@endsection
+
+@push('scripts')
+
+ <script>
     function confirmDelete(sliderId) {
         Swal.fire({
             title: 'Você tem certeza?',
@@ -105,8 +111,4 @@
         });
     }
 </script>
-
-
-</section>
-
-@endsection
+@endpush

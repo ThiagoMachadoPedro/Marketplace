@@ -50,11 +50,11 @@
 
                                 <div class="form-group">
                                     <label for="nome">Nome</label>
-                                    <input type="text" name="nome" class="form-control"
-                                        placeholder="Adicione a marca" value="{{ old('nome') }}">
+                                    <input type="text" name="nome" class="form-control" placeholder="Adicione a marca"
+                                        value="{{ old('nome') }}">
                                 </div>
 
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label for="destacada">Destaque</label>
                                     <select name="destacada" class="form-control">
                                         <option value="1">Sim</option>

@@ -45,9 +45,9 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>Categoria</th>
-                                    <th>Sub-Categoria</th>
+                                      <th>Categoria</th>
+                                      <th>Sub-Categoria</th>
+                                    <th>Categoria-Filha</th>
                                     <th>Status</th>
                                     <th>Ações</th>
                                 </tr>
@@ -56,10 +56,12 @@
                                 @foreach($categoriaFilhos as $categoria)
                                     <tr>
                                         <td>{{ $categoria->id }}</td>
-                                        <td>{{ $categoria->name }}</td>
-                                        <td>{{ $categoria->categoriaRelacionada->name }}</td>
-                                        <td>{{ $categoria->subcategoria->name }}</td>
-                                            <td>
+                                        <td>{{ $categoria->categoria->name }}</td>
+
+                                        <td>{{ $categoria->subcategoria ? $categoria->subcategoria->name : 'Sem categoria' }}</td>
+
+                                                 <td>{{ $categoria->name }}</td>
+                                                 <td>
                                         <label class="custom-switch mt-2">
                                             <input type="checkbox" name="custom-switch-checkbox"
                                                 data-id="{{ $categoria->id }}" class="custom-switch-input muda-status"
@@ -68,7 +70,7 @@
                                         </label>
                                     </td>
                                         <td>
-                                            <a href="{{ route('subcategoria.edit', $categoria->id) }}" class="btn btn-warning">Editar</a>
+                                            <a href="{{ route('categoria-filho.edit', $categoria->id) }}" class="btn btn-warning">Editar</a>
 
                                             <form id="delete-form-{{ $categoria->id }}" action="{{ route('subcategoria.destroy', $categoria->id) }}" method="POST" style="display:inline-block;">
                                                 @csrf
@@ -83,13 +85,15 @@
 
                         <!-- Links de Paginação -->
                         <div class="d-flex justify-content-center">
-                            {{ $categoriaFilhos->links() }}
+                            {{ $categoriaFilhos->links('pagination') }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     <script>
         function confirmDelete(categoriaId) {
@@ -110,6 +114,9 @@
         }
     </script>
 
+</section>
+
+@endsection
 
  @push('scripts')
             <script>
@@ -154,7 +161,3 @@
                 });
             </script>
         @endpush
-
-</section>
-
-@endsection

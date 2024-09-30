@@ -42,7 +42,7 @@
 
                 <li class="menu-header">Produtos</li>
             <li
-                class="dropdown {{ ativadorLinks(['marcas.*']) }}">
+                class="dropdown {{ ativadorLinks(['produtos.*']) }}">
 
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Gerencia Produtos</span></a>
@@ -50,6 +50,23 @@
                 <ul class="dropdown-menu">
                     <li class="{{ ativadorLinks(['marcas.*']) }}"><a
                             class="nav-link" href="{{ route('marcas.index') }}">Marcas</a></li>
+
+                              <li class="{{ ativadorLinks(['produtos.*']) }}"><a
+                            class="nav-link" href="{{ route('produtos.index') }}">Produtos</a></li>
+
+                </ul>
+            </li>
+
+                 <li class="menu-header">Lojas</li>
+            <li
+                class="dropdown {{ ativadorLinks(['vendedor-perfil.*']) }}">
+
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Vendedores</span></a>
+
+                <ul class="dropdown-menu">
+                    <li class="{{ ativadorLinks(['vendedor-perfil.*']) }}"><a
+                            class="nav-link" href="{{ route('vendedor-perfil.index') }}">Perfil do Vendedor</a></li>
 
                 </ul>
             </li>

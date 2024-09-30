@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\AdminPerfilVendedorController;
 use App\Http\Controllers\Backend\CategoriaFilhoController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\MarcaController;
+use App\Http\Controllers\Backend\ProdutoController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
@@ -62,10 +64,21 @@ Route::resource('admin/categoria-filho', CategoriaFilhoController::class)
 
     // busca com javascript uma subcategoria atualizar automatico, quando selecionado a opão a outra carrega automaticamente na tela
 Route::get('get-subcategorias', [CategoriaFilhoController::class, 'getSubCategorias'])->name('get-subcategorias');
-
+Route::get('get-subcategorias', [CategoriaFilhoController::class, 'getSubCategorias'])->name('get-subcategorias');
 
 // admin marca
 Route::post('/marca/toggle-status', [MarcaController::class, 'toggleStatus'])->name('marca.toggleStatus');
-
 Route::resource('admin/marcas', MarcaController::class)
     ->middleware([Admin::class]);
+
+
+    // perfil vendedor
+Route::resource('vendedor-perfil', AdminPerfilVendedorController::class)
+    ->middleware([Admin::class]);
+
+// Produtos
+Route::resource('produtos', ProdutoController::class)
+    ->middleware([Admin::class]);
+    
+Route::get('produtos/get-subcategorias', [ProdutoController::class, 'getSubCategorias'])->name('produtos.get-subCategorias');
+Route::get('produtos/get-categorias-filho', [ProdutoController::class, 'getCategoriasFilho'])->name('produtos.get-filhoCategorias');

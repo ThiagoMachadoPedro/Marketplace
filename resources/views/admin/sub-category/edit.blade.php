@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                     <label for="id_categoria">Categoria</label>
                                     <select name="id_categoria" id="id_categoria" class="form-control" required>
-                                        @foreach($categorias as $cat)
+                                        @foreach ($categorias as $cat)
                                             <option value="{{ $cat->id }}"
                                                 {{ $cat->id == $categoria->id_categoria ? 'selected' : '' }}>
                                                 {{ $cat->name }}

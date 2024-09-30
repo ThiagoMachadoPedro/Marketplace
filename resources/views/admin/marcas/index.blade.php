@@ -104,70 +104,67 @@
         </div>
         </div>
         </div>
-
-        <script>
-            function confirmDelete(categoriaId) {
-                Swal.fire({
-                    title: 'Você tem certeza?',
-                    text: "Esta ação não pode ser desfeita!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sim, excluir!',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Submeter o formulário se o usuário confirmar
-                        document.getElementById('delete-form-' + categoriaId).submit();
-                    }
-                });
-            }
-        </script>
-
-        @push('scripts')
-            <script>
-                $(document).ready(function() {
-                    $('.muda-status').on('change', function() {
-                        var status = $(this).is(':checked') ? 1 : 0;
-                        var marcaId = $(this).data('id');
-                        console.log('Marca ID:', marcaId, 'Status:',
-                            status);
-
-                        $.ajax({
-                            url: "{{ route('marca.toggleStatus') }}",
-                            method: "POST",
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                id: marcaId,
-                                status: status
-                            },
-                            success: function(response) {
-                                console.log(response);
-                                if (response.success) {
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Sucesso ao atualizar o status!',
-                                        text: response.message,
-                                    });
-                                } else {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Erro , atualizar o status!',
-                                        text: response.message, // Mensagem de erro do servidor
-                                    });
-                                }
-                            },
-
-                            error: function(xhr, status, error) {
-                                console.error(error); // Exiba o erro no console
-                                alert('Erro ao tentar alterar o status.');
-                            }
-                        });
-                    });
-                });
-            </script>
-        @endpush
-
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        function confirmDelete(categoriaId) {
+            Swal.fire({
+                title: 'Você tem certeza?',
+                text: "Esta ação não pode ser desfeita!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, excluir!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submeter o formulário se o usuário confirmar
+                    document.getElementById('delete-form-' + categoriaId).submit();
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $('.muda-status').on('change', function() {
+                var status = $(this).is(':checked') ? 1 : 0;
+                var marcaId = $(this).data('id');
+                console.log('Marca ID:', marcaId, 'Status:',
+                    status);
+
+                $.ajax({
+                    url: "{{ route('marca.toggleStatus') }}",
+                    method: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id: marcaId,
+                        status: status
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sucesso ao atualizar o status!',
+                                text: response.message,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro , atualizar o status!',
+                                text: response.message, // Mensagem de erro do servidor
+                            });
+                        }
+                    },
+
+                    error: function(xhr, status, error) {
+                        console.error(error); // Exiba o erro no console
+                        alert('Erro ao tentar alterar o status.');
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

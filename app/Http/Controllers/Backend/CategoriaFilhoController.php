@@ -104,7 +104,7 @@ class CategoriaFilhoController extends Controller
         $categoriaFilho = CategoriaFilho::findOrFail($id);
         $categoriaFilho->id_categoria = $request->id_categoria;
         $categoriaFilho->sub_categoria_id = $request->sub_categoria_id;
-        $categoriaFilho->name = $request->nome;
+        $categoriaFilho->name = $request->name;
         $categoriaFilho->slug = Str::slug($request->name);
         $categoriaFilho->status = $request->status;
         $categoriaFilho->save();
